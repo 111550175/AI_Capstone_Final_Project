@@ -17,7 +17,7 @@ Follow the instructions [at this link](https://docs.nerf.studio/quickstart/insta
 
 Once you have finished installing dependencies, including those for gsplat, you can install Instruct-GS2GS using the following command:
 ```bash
-pip install https://github.com/111550175/AI_Capstone_Final_Project
+pip install git+https://github.com/111550175/AI_Capstone_Final_Project
 ```
 
 _Optional_: If you would like to work with the code directly, clone then install the repo:
