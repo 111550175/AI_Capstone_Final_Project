@@ -17,12 +17,12 @@ Follow the instructions [at this link](https://docs.nerf.studio/quickstart/insta
 
 Once you have finished installing dependencies, including those for gsplat, you can install Instruct-GS2GS using the following command:
 ```bash
-pip install git+https://github.com/cvachha/instruct-gs2gs
+pip install [git+https://github.com/cvachha/instruct-gs2gs](https://github.com/cvachha/instruct-gs2gs.git)
 ```
 
 _Optional_: If you would like to work with the code directly, clone then install the repo:
 ```bash
-git clone https://github.com/cvachha/instruct-gs2gs.git
+git clone [https://github.com/cvachha/instruct-gs2gs.git](https://github.com/cvachha/instruct-gs2gs.git)
 cd instruct-gs2gs
 pip install --upgrade pip setuptools
 pip install -e .
