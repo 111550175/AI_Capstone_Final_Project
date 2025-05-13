@@ -40,7 +40,7 @@ sudo apt update
 sudo apt install ninja-build
 sudo apt install mlocate
 locate libcuda.so # get PATH that under Liunx system, for me: /usr/lib/wsl/lib/libcuda.so
-export LIBRARY_PATH=PATH:$LIBRARY_PATH
+export LIBRARY_PATH=PATH:$LIBRARY_PATH # fill in the PATH you get
 export LD_LIBRARY_PATH=PATH:$LD_LIBRARY_PATH
 pip install ninja git+https://github.com/NVlabs/tiny-cuda-nn/#subdirectory=bindings/torch
 ```
