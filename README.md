@@ -5,22 +5,47 @@
 
 This codebase is a fork of the original [Instruct-NeRF2NeRF](https://github.com/ayaanzhaque/instruct-nerf2nerf) repository.
 
-# Installation
+# Installation (Linux)
 
-## 1. Install Nerfstudio dependencies
-
-Instruct-GS2GS is build on Nerfstudio and therefore has the same dependency reqirements. Specfically [PyTorch](https://pytorch.org/) and [tinycudann](https://github.com/NVlabs/tiny-cuda-nn) are required.
-
-Follow the instructions [at this link](https://docs.nerf.studio/quickstart/installation.html) to create the environment and install dependencies. Only follow the commands up to tinycudann. After the dependencies have been installed, return here.
-
-## 2. Installing Instruct-GS2GS
-
-Once you have finished installing dependencies, including those for gsplat, you can install Instruct-GS2GS using the following command:
+## Fisrt check whether cuda version is 11.8
 ```bash
-pip install git+https://github.com/111550175/AI_Capstone_Final_Project
+nvcc -V 
+```
+## Example output:
+
+```bash
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2022 NVIDIA Corporation
+Built on Wed_Sep_21_10:33:58_PDT_2022
+Cuda compilation tools, release 11.8, V11.8.89
+Build cuda_11.8.r11.8/compiler.31833905_0
 ```
 
-_Optional_: If you would like to work with the code directly, clone then install the repo:
+## Create environment
+```bash
+conda create --name nerfstudio -y python=3.8
+conda activate nerfstudio
+python -m pip install --upgrade pip
+```
+
+## Dependencies
+```bash
+pip uninstall torch torchvision functorch tinycudann
+pip install torch==2.1.2+cu118 torchvision==0.16.2+cu118 --extra-index-url https://download.pytorch.org/whl/cu118
+conda install -c "nvidia/label/cuda-11.8.0" cuda-toolkit
+```
+
+```bash
+sudo apt update
+sudo apt install ninja-build
+sudo apt install mlocate
+locate libcuda.so # get PATH that under Liunx system, for me: /usr/lib/wsl/lib/libcuda.so
+export LIBRARY_PATH=PATH:$LIBRARY_PATH
+export LD_LIBRARY_PATH=PATH:$LD_LIBRARY_PATH
+pip install ninja git+https://github.com/NVlabs/tiny-cuda-nn/#subdirectory=bindings/torch
+```
+
+## Clone & Install
 ```bash
 git clone https://github.com/111550175/AI_Capstone_Final_Project.git
 cd AI_Capstone_Final_Project
@@ -28,27 +53,14 @@ pip install --upgrade pip setuptools
 pip install -e .
 ```
 
-Or
+## Modify some packages version
 ```bash
-nvcc -V # Fisrt check whether cuda version is 11.8
-######################EXAMPLE#####################
-nvcc: NVIDIA (R) Cuda compiler driver
-Copyright (c) 2005-2022 NVIDIA Corporation
-Built on Wed_Sep_21_10:33:58_PDT_2022
-Cuda compilation tools, release 11.8, V11.8.89
-Build cuda_11.8.r11.8/compiler.31833905_0
-##################################################
-sudo apt update
-sudo apt install ninja-build
-ls -l /usr/lib/wsl/lib/libcuda.so # get PATH
-export LIBRARY_PATH={PATH}:$LIBRARY_PATH
-export LD_LIBRARY_PATH={PATH}:$LD_LIBRARY_PATH
-# pip uninstall gsplat
-# pip install git+https://github.com/nerfstudio-project/gsplat.git@v0.1.9
-conda env create -f nerfstudio_env.yml
+pip install nerfstudio==1.0.3
+pip uninstall gsplat
+pip install git+https://github.com/nerfstudio-project/gsplat.git@v0.1.9
 ```
 
-## 3. Checking the install
+## Checking the install
 
 The following command should include `igs2gs` as one of the options:
 ```bash
