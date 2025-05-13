@@ -30,6 +30,13 @@ pip install -e .
 
 Or
 ```bash
+sudo apt update
+sudo apt install ninja-build
+ls -l /usr/lib/wsl/lib/libcuda.so # get PATH
+export LIBRARY_PATH={PATH}:$LIBRARY_PATH
+export LD_LIBRARY_PATH={PATH}:$LD_LIBRARY_PATH
+# pip uninstall gsplat
+# pip install git+https://github.com/nerfstudio-project/gsplat.git@v0.1.9
 conda env create -f nerfstudio_env.yml
 ```
 
