@@ -30,6 +30,14 @@ pip install -e .
 
 Or
 ```bash
+nvcc -V # Fisrt check whether cuda version is 11.8
+######################EXAMPLE#####################
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2022 NVIDIA Corporation
+Built on Wed_Sep_21_10:33:58_PDT_2022
+Cuda compilation tools, release 11.8, V11.8.89
+Build cuda_11.8.r11.8/compiler.31833905_0
+##################################################
 sudo apt update
 sudo apt install ninja-build
 ls -l /usr/lib/wsl/lib/libcuda.so # get PATH
