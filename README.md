@@ -28,6 +28,11 @@ pip install --upgrade pip setuptools
 pip install -e .
 ```
 
+Or
+```bash
+conda env create -f nerfstudio_env.yml
+```
+
 ## 3. Checking the install
 
 The following command should include `igs2gs` as one of the options:
