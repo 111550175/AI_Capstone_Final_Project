@@ -23,7 +23,7 @@ pip install git+https://github.com/111550175/AI_Capstone_Final_Project
 _Optional_: If you would like to work with the code directly, clone then install the repo:
 ```bash
 git clone https://github.com/111550175/AI_Capstone_Final_Project.git
-cd instruct-gs2gs
+cd AI_Capstone_Final_Project
 pip install --upgrade pip setuptools
 pip install -e .
 ```
