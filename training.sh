@@ -1,0 +1,2 @@
+ns-train splatfacto --data dataset/bear --max-num-iterations 20000
+ns-train igs2gs --data dataset/bear --load-dir outputs/bear/splatfacto/2025-05-13_163902/nerfstudio_models --pipeline.prompt "Turn the bear into a grizzly bear" --pipeline.guidance-scale 12.5 --pipeline.image-guidance-scale 1.5
