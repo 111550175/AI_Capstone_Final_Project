@@ -19,12 +19,15 @@
 import pdb
 import sys
 from dataclasses import dataclass
-from typing import Union
+from typing import Union, Optional
 
 import torch
 from rich.console import Console
 from torch import Tensor, nn
 from jaxtyping import Float
+from PIL import Image
+import numpy as np
+import os 
 
 CONSOLE = Console(width=120)
 
@@ -98,6 +101,7 @@ class InstructPix2Pix(nn.Module):
 
         self.unet = pipe.unet
         self.auto_encoder = pipe.vae
+        self.counting = 0
 
         CONSOLE.print("InstructPix2Pix loaded!")
 
@@ -110,7 +114,8 @@ class InstructPix2Pix(nn.Module):
         image_guidance_scale: float = 1.5,
         diffusion_steps: int = 20,
         lower_bound: float = 0.70,
-        upper_bound: float = 0.98
+        upper_bound: float = 0.98,
+        save_path: Optional[str] = None
     ) -> torch.Tensor:
         """Edit an image for Instruct-GS2GS using InstructPix2Pix
         Args:
@@ -122,6 +127,7 @@ class InstructPix2Pix(nn.Module):
             diffusion_steps: number of diffusion steps
             lower_bound: lower bound for diffusion timesteps to use for image editing
             upper_bound: upper bound for diffusion timesteps to use for image editing
+            save_path: optional path to save the edited image
         Returns:
             edited image
         """
@@ -170,7 +176,27 @@ class InstructPix2Pix(nn.Module):
         with torch.no_grad():
             decoded_img = self.latents_to_img(latents)
 
+        # save the edited image if save_path is provided
+        if save_path:
+            self.save_image(decoded_img, save_path)
+
         return decoded_img
+
+    def save_image(self, image: Float[Tensor, "BS 3 H W"], save_path: str) -> None:
+        """Save the image tensor to a file
+        Args:
+            image: Image tensor to save
+            save_path: Path to save the image
+        """
+        # Convert tensor to PIL Image
+        image = image.squeeze(0).permute(1, 2, 0).cpu().numpy()  # Convert to HWC format
+        image = (image * 255).astype(np.uint8)  # Scale to 0-255 and convert to uint8
+        pil_image = Image.fromarray(image)
+        filename = f"edited_img_{self.counting}.png"
+        save_path = os.path.join(save_path, filename)
+        pil_image.save(save_path, format="PNG")
+        CONSOLE.print(f"Image saved to {save_path}")
+        self.counting = self.counting + 1
 
     def latents_to_img(self, latents: Float[Tensor, "BS 4 H W"]) -> Float[Tensor, "BS 3 H W"]:
         """Convert latents to images

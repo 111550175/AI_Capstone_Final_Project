@@ -58,6 +58,8 @@ class InstructGS2GSPipelineConfig(VanillaPipelineConfig):
     """Second device to place InstructPix2Pix on. If None, will use the same device as the pipeline"""
     ip2p_use_full_precision: bool = False
     """Whether to use full precision for InstructPix2Pix"""
+    save_path: Optional[str] = None
+    """Where to store the edited image"""
 
 class InstructGS2GSPipeline(VanillaPipeline):
     """InstructGS2GS Pipeline
@@ -129,6 +131,7 @@ class InstructGS2GSPipeline(VanillaPipeline):
                         diffusion_steps=self.config.diffusion_steps,
                         lower_bound=self.config.lower_bound,
                         upper_bound=self.config.upper_bound,
+                        save_path=self.config.save_path,
                     )
 
             # resize to original image size (often not necessary)
